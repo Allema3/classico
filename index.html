@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classico — Burgers &amp; Tacos à Lavernose-Lacasse</title>
+<meta name="description" content="Classico, snack de restauration rapide à Lavernose-Lacasse. Burgers et tacos maison, note 4,9/5 sur plus de 250 avis Google. Commande au 06 63 51 64 09.">
+
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Polices : Fraunces (titres, chaleureuse et gourmande) + Inter (texte courant) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:     '#14110F',   // fond principal, ardoise très sombre
+          char:    '#1E1A17',   // panneaux / cartes
+          char2:   '#26211D',   // panneaux légèrement plus clairs
+          cream:   '#F4EEE3',   // texte clair
+          sand:    '#B9AE9C',   // texte secondaire
+          amber:   '#E36B22',   // accent principal (feu / grill)
+          amberD:  '#B8501A',   // accent foncé
+          gold:    '#D9A441',   // étoiles / avis
+        },
+        fontFamily: {
+          display: ['"Fraunces"', 'serif'],
+          body: ['"Inter"', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #14110F; }
+  .paper-edge {
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  }
+  .ticket-divider {
+    height: 14px;
+    background-image: radial-gradient(circle at 10px 7px, #14110F 6px, transparent 7px);
+    background-size: 24px 14px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+  .leader::after {
+    content: "";
+    display: inline-block;
+    flex: 1 1 auto;
+    margin: 0 0.5em;
+    border-bottom: 1px dotted rgba(185,174,156,0.4);
+    transform: translateY(-4px);
+  }
+  .menu-tab.active {
+    background-color: #E36B22;
+    color: #14110F;
+  }
+  .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fade-in { animation: none; }
+  }
+  ::selection { background: #E36B22; color: #14110F; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #E36B22;
+    outline-offset: 2px;
+  }
+</style>
+</head>
+
+<body class="bg-ink text-cream font-body antialiased pb-16 md:pb-0">
+
+<!-- ===================== HEADER / NAV ===================== -->
+<header class="fixed top-0 inset-x-0 z-40 bg-ink/90 backdrop-blur border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+    <a href="#accueil" class="font-display text-2xl font-700 tracking-tight text-cream">
+      Classico<span class="text-amber">.</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-sand">
+      <a href="#carte" class="hover:text-cream transition-colors">La carte</a>
+      <a href="#galerie" class="hover:text-cream transition-colors">Galerie</a>
+      <a href="#avis" class="hover:text-cream transition-colors">Avis</a>
+      <a href="#infos" class="hover:text-cream transition-colors">Infos &amp; horaires</a>
+    </nav>
+    <a href="tel:0663516409" class="hidden md:inline-flex items-center gap-2 bg-amber text-ink font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-amberD transition-colors">
+      06 63 51 64 09
+    </a>
+    <a href="tel:0663516409" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber text-ink" aria-label="Appeler Classico">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.01l-2.2 2.23z"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="accueil" class="relative pt-16 min-h-[92vh] flex items-end md:items-center overflow-hidden">
+  <!-- Remplacer par l'image réelle Google Business (photo de burger signature du Classico) : URL GMB -->
+  <img
+    src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/473948391_122144648390372321_7023855472815313815_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=_mIZJu6aRYgQ7kNvwH9Vjk1&_nc_oc=AdqR0jgtiehEf4pdrZa96-PzPuHiFTNhp09rdMENRQGc1TMFZFxuWFC5Hw_VOvl77G8v359BOPocLxmpGZlFhmP-&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=04CRtSFxOQ_qNbIWJSlz4g&_nc_ss=7b2a8&oh=00_AQIJUxYy-828g_PMzA-JEwsFjo8GcEiQGrGeloi36SEsYA&oe=6A9CBC1A"
+    alt="Burger maison façon Classico, viande grillée, cheddar fondu et pain brioché"
+    class="absolute inset-0 w-full h-full object-cover object-center"
+    loading="eager">
+  <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/20"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/40 to-transparent"></div>
+
+  <div class="relative max-w-6xl mx-auto px-5 md:px-8 pb-14 md:pb-0 w-full">
+    <div class="max-w-xl">
+      <div class="inline-flex items-center gap-2 bg-char/80 border border-white/10 rounded-full pl-2 pr-4 py-1.5 mb-6">
+        <span class="flex items-center gap-0.5 text-gold">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        </span>
+        <span class="text-sm font-medium text-cream">4,9/5 sur +250 avis Google</span>
+      </div>
+
+      <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-700 leading-[0.95] text-cream mb-5">
+        Le vrai goût du fait maison, servi vite fait bien fait.
+      </h1>
+      <p class="text-sand text-lg leading-relaxed mb-8 max-w-md">
+        Burgers, tacos et frites maison préparés minute à Lavernose-Lacasse, avec des produits frais et de la viande de boucher. Sur place ou à emporter.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="tel:0663516409" class="inline-flex items-center justify-center gap-2 bg-amber text-ink font-semibold px-7 py-4 rounded-full hover:bg-amberD transition-colors text-base">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.01l-2.2 2.23z"/></svg>
+          Commander au 06 63 51 64 09
+        </a>
+        <a href="#carte" class="inline-flex items-center justify-center gap-2 border border-white/20 text-cream font-semibold px-7 py-4 rounded-full hover:border-amber hover:text-amber transition-colors text-base">
+          Voir la carte
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticket-divider bg-char"></div>
+
+<!-- ===================== BANDEAU CHIFFRES ===================== -->
+<section class="bg-char">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 py-8 grid grid-cols-3 gap-4 text-center">
+    <div>
+      <p class="font-display text-3xl md:text-4xl font-700 text-amber">4,9<span class="text-lg text-sand">/5</span></p>
+      <p class="text-xs md:text-sm text-sand mt-1">254 avis Google</p>
+    </div>
+    <div class="border-x border-white/10">
+      <p class="font-display text-3xl md:text-4xl font-700 text-amber">100%</p>
+      <p class="text-xs md:text-sm text-sand mt-1">Fait maison</p>
+    </div>
+    <div>
+      <p class="font-display text-3xl md:text-4xl font-700 text-amber">6j/7*</p>
+      <p class="text-xs md:text-sm text-sand mt-1">Ouvert 6 jours sur 7</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CARTE / MENU ===================== -->
+<section id="carte" class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+  <div class="max-w-lg mb-10">
+    <p class="text-amber font-semibold text-sm mb-2">La carte</p>
+    <h2 class="font-display text-4xl md:text-5xl font-700 leading-tight mb-4">Composez votre repas</h2>
+    <p class="text-sand leading-relaxed">Une sélection courte, pensée pour être toujours fraîche. Les prix ci-dessous sont indicatifs, la carte complète est affichée en snack.</p>
+  </div>
+
+  <!-- Onglets -->
+  <div class="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-5 px-5 md:mx-0 md:px-0" id="menu-tabs">
+    <button data-target="burgers" class="menu-tab active whitespace-nowrap text-sm font-semibold px-5 py-2.5 rounded-full border border-white/10 text-cream transition-colors">Burgers</button>
+    <button data-target="tacos" class="menu-tab whitespace-nowrap text-sm font-semibold px-5 py-2.5 rounded-full border border-white/10 text-cream transition-colors">Tacos</button>
+    <button data-target="menus" class="menu-tab whitespace-nowrap text-sm font-semibold px-5 py-2.5 rounded-full border border-white/10 text-cream transition-colors">Menus</button>
+    <button data-target="boissons" class="menu-tab whitespace-nowrap text-sm font-semibold px-5 py-2.5 rounded-full border border-white/10 text-cream transition-colors">Boissons</button>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-10">
+    <!-- Visuel associé -->
+    <div class="order-first md:order-last">
+      <div class="aspect-[4/5] rounded-2xl overflow-hidden">
+        <!-- Remplacer par la photo réelle du plat correspondant issue de la fiche Google Business -->
+        <img id="menu-visual" src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/474739329_122145338132372321_8965916526686790015_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uSgqmSFmGCUQ7kNvwGMllTj&_nc_oc=AdpcNnuy8Feb4NoHBqaoHw63nab0E8M9xeK9luSokgUtCsH8ghBJPb8yM96xAlO7hFhw3AA5oSAxd-G_6uFl2eHj&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=RU7yeB4HfFUpNxyE6QvSFg&_nc_ss=7b2a8&oh=00_AQL4KIGKbCApNDA23w6g8YAmODDeGI0NAAwXXvZHLgkB_A&oe=6A9CE929" alt="Burger Classico grillé au feu, cheddar fondu" class="w-full h-full object-cover transition-opacity duration-300">
+      </div>
+    </div>
+
+    <!-- Listes -->
+    <div>
+      <div id="panel-burgers" class="menu-panel space-y-1">
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Classico Burger — steak, cheddar, oignons confits</span><span class="text-amber font-semibold">7,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Cheese Deluxe — double steak, double cheddar</span><span class="text-amber font-semibold">9,00 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Bacon Melt — steak, bacon fumé, sauce maison</span><span class="text-amber font-semibold">9,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Le Végé — galette de légumes, crudités fraîches</span><span class="text-amber font-semibold">7,90 €</span></div>
+      </div>
+      <div id="panel-tacos" class="menu-panel space-y-1 hidden">
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Tacos 1 viande — sauce fromagère, frites incluses</span><span class="text-amber font-semibold">7,00 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Tacos 2 viandes — au choix, sauce fromagère</span><span class="text-amber font-semibold">8,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Tacos 3 viandes — le généreux, sauce fromagère</span><span class="text-amber font-semibold">10,00 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Tacos poulet croustillant — sauce samouraï</span><span class="text-amber font-semibold">8,50 €</span></div>
+      </div>
+      <div id="panel-menus" class="menu-panel space-y-1 hidden">
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Menu Solo — sandwich, frites, boisson</span><span class="text-amber font-semibold">+ 3,00 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Menu Duo — 2 sandwichs, 2 frites, 2 boissons</span><span class="text-amber font-semibold">17,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Menu Enfant — mini burger, frites, compote, boisson</span><span class="text-amber font-semibold">6,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Formule Groupe — sur devis, événements sportifs</span><span class="text-amber font-semibold">Nous consulter</span></div>
+      </div>
+      <div id="panel-boissons" class="menu-panel space-y-1 hidden">
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Sodas 33cl — Coca-Cola, Oasis, Fanta</span><span class="text-amber font-semibold">2,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Eau minérale 50cl</span><span class="text-amber font-semibold">1,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Milkshake maison</span><span class="text-amber font-semibold">4,50 €</span></div>
+        <div class="flex items-baseline py-3 border-b border-white/5"><span class="font-medium leader">Thé glacé</span><span class="text-amber font-semibold">2,50 €</span></div>
+      </div>
+
+      <a href="tel:0663516409" class="mt-8 inline-flex items-center gap-2 text-amber font-semibold hover:text-amberD transition-colors">
+        Passer commande par téléphone →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALERIE ===================== -->
+<section id="galerie" class="bg-char py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8">
+    <div class="max-w-lg mb-10">
+      <p class="text-amber font-semibold text-sm mb-2">Galerie &amp; ambiance</p>
+      <h2 class="font-display text-4xl md:text-5xl font-700 leading-tight mb-4">Chez Classico, en images</h2>
+      <p class="text-sand leading-relaxed">La devanture, les préparations et l'ambiance du snack au 42 Rue du Commerce.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+      <div class="col-span-2 row-span-2 rounded-xl overflow-hidden aspect-square md:aspect-auto">
+        <img src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/448535466_122116689134320011_7837901161255065848_n.jpg?stp=dst-jpg_tt6&cstp=mx960x960&ctp=s960x960&_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=5v3AXx24IAYQ7kNvwHBDOMu&_nc_oc=AdqjUgn6w3_HcpjkJZN3kvUG76ntZtsnRL2flKLvelz8VxR5xxq8PNgls5Mlyuaty4q12_EutHXkj9wBrZ6IlZG_&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=oP7Yh-YwkMNKhYKNXnYL7w&_nc_ss=7b2a8&oh=00_AQKPa4JWvzxd_k-lBx2osW6W3c2mZv9jDpcjmqSFqk2Caw&oe=6A9CBF8E" alt="Devanture d'un snack de restauration rapide, ambiance conviviale" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/488372672_122154874196372321_1102260051292422203_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=mt1EZ7_eVbMQ7kNvwHwm8c9&_nc_oc=AdqLxrOzkA4Bw9vomvryhmz3yHbaT-4Rf1tu9oZYBA5B69MaYZpQxbxTouOi_-sUxQh5UanCeP-ul0o9BXG4RTuq&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=gMFAxUg5x39527ExBGpNKQ&_nc_ss=7b2a8&oh=00_AQKfdk8fhqQ7ErENGtnww7wiX2Q7kBavD9GkokvbhhB2VA&oe=6A9CC77B" alt="Burger maison avec frites, présentation soignée" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/473445031_122143759388372321_2075478261213195173_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8hnNeNtdTg0Q7kNvwFo8GZk&_nc_oc=Ado8iT6ezzz5J9vUXOuA-nz10JG-HBQeTyZVx_REtN5NfurKr--l7lqnPR2gV4lBk76JaZfXWXtwV8TeAu4poTUW&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=u2dSiBGvZ_hUA0pjU-fsfQ&_nc_ss=7b2a8&oh=00_AQLC-o6ADuektKBAIlqIXXZ_mtQxiWlRaDvvYcHLFQAKdw&oe=6A9CC84F" alt="Tacos généreux garni de viande et sauce fromagère" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <!-- Remplacer par une photo réelle produit issue de la fiche Google Business -->
+        <img src="https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/543461987_122177081606372321_3153303700604930280_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=aMisIaIPKN8Q7kNvwGA6eJV&_nc_oc=AdqyZfEw1IwFHTeYZX531YNQ8wpZep2qhwVkC87TLlVREqiy8AGIX2VnXQ7Z1uLnTTClumLLQ0KY4Ce1tqn26ask&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=woyDp8UexIwQXeKjvWSaRg&_nc_ss=7b2a8&oh=00_AQJs0GZ-FJa5fN2q3XDa_CE5vJUDOy4kyGVAFS0uHwCesg&oe=6A9CC084" alt="Kebab généreux + frites maison dorées et croustillantes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <!-- Remplacer par une photo réelle produit issue de la fiche Google Business -->
+        <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=600&q=80" alt="Burgers gourmands empilés, viande de boucher grillée" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AVIS ===================== -->
+<section id="avis" class="max-w-6xl mx-auto px-5 md:px-8 py-20 md:py-28">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div class="max-w-lg">
+      <p class="text-amber font-semibold text-sm mb-2">Preuve sociale</p>
+      <h2 class="font-display text-4xl md:text-5xl font-700 leading-tight">Ce qu'en disent nos clients</h2>
+    </div>
+    <div class="flex items-center gap-3 bg-char2 border border-white/10 rounded-2xl px-5 py-4 shrink-0">
+      <span class="font-display text-4xl font-700 text-amber">4,9</span>
+      <div>
+        <div class="flex text-gold">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        </div>
+        <p class="text-xs text-sand mt-1">254 avis Google</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <article class="bg-char2 border border-white/10 rounded-2xl p-6 flex flex-col">
+      <div class="flex text-gold mb-4">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+      </div>
+      <p class="text-cream leading-relaxed mb-6 flex-1">« Un burger qui ressemble à la photo du menu ? C'est ici : Le Classico à Lavernose. »</p>
+      <p class="text-sm font-semibold text-sand">Matthieu Bourgain</p>
+      <p class="text-xs text-sand/70">Avis Google</p>
+    </article>
+
+    <article class="bg-char2 border border-white/10 rounded-2xl p-6 flex flex-col">
+      <div class="flex text-gold mb-4">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+      </div>
+      <p class="text-cream leading-relaxed mb-6 flex-1">« Snack incroyable, je viens de Muret exprès à chaque fois car je trouve que rapport qualité prix il n'y a pas mieux sincèrement... »</p>
+      <p class="text-sm font-semibold text-sand">Lauriane De Oliveira</p>
+      <p class="text-xs text-sand/70">Avis Google</p>
+    </article>
+
+    <article class="bg-char2 border border-white/10 rounded-2xl p-6 flex flex-col">
+      <div class="flex text-gold mb-4">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"/></svg>
+      </div>
+      <p class="text-cream leading-relaxed mb-6 flex-1">« De passage pour la journée dans cette charmante petite ville et nous nous sommes arrêtés manger ici. »</p>
+      <p class="text-sm font-semibold text-sand">Chloé Del</p>
+      <p class="text-xs text-sand/70">Avis Google</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== INFOS PRATIQUES ===================== -->
+<section id="infos" class="bg-char py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 grid md:grid-cols-2 gap-10">
+    <div>
+      <p class="text-amber font-semibold text-sm mb-2">Infos pratiques</p>
+      <h2 class="font-display text-4xl md:text-5xl font-700 leading-tight mb-8">Venez nous voir</h2>
+
+      <div class="space-y-6 mb-8">
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">42 Rue du Commerce</p>
+            <p class="text-sand text-sm">31410 Lavernose-Lacasse</p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=42+Rue+du+Commerce,+31410+Lavernose-Lacasse" target="_blank" rel="noopener" class="inline-block mt-2 text-sm font-semibold text-amber hover:text-amberD transition-colors">Itinéraire Google Maps →</a>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-amber" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div>
+            <p class="font-semibold text-cream">06 63 51 64 09</p>
+            <a href="tel:0663516409" class="text-sm font-semibold text-amber hover:text-amberD transition-colors">Appeler pour commander →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-char2 border border-white/10 rounded-2xl p-6">
+        <p class="font-semibold text-cream mb-4">Horaires d'ouverture</p>
+        <ul class="text-sm space-y-2">
+          <li class="flex justify-between text-sand"><span>Lundi</span><span class="text-sand/60">Fermé</span></li>
+          <li class="flex justify-between text-sand"><span>Mardi</span><span class="text-cream">18h30 – 23h30</span></li>
+          <li class="flex justify-between text-sand"><span>Mercredi</span><span class="text-cream">11h30–14h00 / 18h30–23h30</span></li>
+          <li class="flex justify-between text-sand"><span>Jeudi</span><span class="text-cream">11h30–14h00 / 18h30–23h30</span></li>
+          <li class="flex justify-between text-sand"><span>Vendredi</span><span class="text-cream">11h30–14h00 / 18h30–23h30</span></li>
+          <li class="flex justify-between text-sand"><span>Samedi</span><span class="text-cream">11h30–14h00 / 18h30–23h30</span></li>
+          <li class="flex justify-between text-sand"><span>Dimanche</span><span class="text-cream">18h30 – 22h30</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rounded-2xl overflow-hidden border border-white/10 min-h-[360px] md:min-h-full">
+      <!-- Carte Google Maps intégrée sans clé API (mode embed public) -->
+      <iframe
+        title="Localisation du Classico, 42 Rue du Commerce, Lavernose-Lacasse"
+        src="https://maps.google.com/maps?q=42+Rue+du+Commerce,+31410+Lavernose-Lacasse&z=16&output=embed"
+        class="w-full h-full min-h-[360px]"
+        style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-ink border-t border-white/5 py-10">
+  <div class="max-w-6xl mx-auto px-5 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-sand">
+    <p class="font-display text-xl text-cream">Classico<span class="text-amber">.</span></p>
+    <p>42 Rue du Commerce, 31410 Lavernose-Lacasse — 06 63 51 64 09</p>
+    <p class="text-sand/60">© 2026 Classico. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- ===================== BARRE MOBILE FIXE ===================== -->
+<div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-char border-t border-white/10 px-4 py-3 flex gap-3">
+  <a href="tel:0663516409" class="flex-1 inline-flex items-center justify-center gap-2 bg-amber text-ink font-semibold py-3 rounded-full text-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.25 1.01l-2.2 2.23z"/></svg>
+    Appeler
+  </a>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=42+Rue+du+Commerce,+31410+Lavernose-Lacasse" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 border border-white/20 text-cream font-semibold py-3 rounded-full text-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    Itinéraire
+  </a>
+</div>
+
+<script>
+  // Gestion des onglets de la carte (Burgers / Tacos / Menus / Boissons)
+  const tabs = document.querySelectorAll('.menu-tab');
+  const panels = document.querySelectorAll('.menu-panel');
+  const menuVisual = document.getElementById('menu-visual');
+
+  const visuals = {
+    burgers:  { src: 'https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/474739329_122145338132372321_8965916526686790015_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uSgqmSFmGCUQ7kNvwGMllTj&_nc_oc=AdpcNnuy8Feb4NoHBqaoHw63nab0E8M9xeK9luSokgUtCsH8ghBJPb8yM96xAlO7hFhw3AA5oSAxd-G_6uFl2eHj&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=RU7yeB4HfFUpNxyE6QvSFg&_nc_ss=7b2a8&oh=00_AQL4KIGKbCApNDA23w6g8YAmODDeGI0NAAwXXvZHLgkB_A&oe=6A9CE929', alt: 'Burger Classico grillé au feu, cheddar fondu' },
+    tacos:    { src: 'https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/470174526_122140575674372321_3059425799595888783_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1536x2048&ctp=s1536x2048&_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=PHbf5fL50jQQ7kNvwGhDFkp&_nc_oc=AdomHw8oYY5IuPAQwsHpVS09wsHjfjGE6WtwwoOk-S4f-a8vPHbNRY6RJvaIXqjmjtKW-gypUY0L2VYG824FcHHY&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=Nt5s_i7_Ji7-f8gs6Hg6kw&_nc_ss=7b2a8&oh=00_AQJq3vRO9VjsfCe5TLcPMDPBNS-MCfbnv54jlq0nOy--iw&oe=6A9CCBCD', alt: 'Tacos généreusement garni, sauce fromagère' },
+    menus:    { src: 'https://scontent.ftls1-1.fna.fbcdn.net/v/t39.30808-6/495518532_122160614594372321_9076036424346742190_n.jpg?stp=dst-jpg_tt6&cstp=mx1940x2048&ctp=s1940x2048&_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zIxYoguDvCQQ7kNvwFxxEUd&_nc_oc=Adr8-dBw2cPwXYK98uEieqjOVnLRUWDS5gHC3ei8RB3c8eKGumxJ4buxbJBF2XZxdNFQVhJ0DOeipzFz8TT-sWmD&_nc_zt=23&_nc_ht=scontent.ftls1-1.fna&_nc_gid=p3EyA0m-1_Bi-bJvYrWQzA&_nc_ss=7b2a8&oh=00_AQJtcpDBdmMl3P4Oixm-Q7uvmiSYaOLkiXJNMRgbwM6h2w&oe=6A9CBFAD', alt: 'Plateau repas complet salade et boisson' },
+    boissons: { src: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=1000&q=80', alt: 'Boisson fraîche servie avec le repas' },
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      panels.forEach(p => p.classList.add('hidden'));
+      const activePanel = document.getElementById('panel-' + target);
+      activePanel.classList.remove('hidden');
+      activePanel.classList.add('fade-in');
+
+      if (visuals[target]) {
+        menuVisual.style.opacity = 0;
+        setTimeout(() => {
+          menuVisual.src = visuals[target].src;
+          menuVisual.alt = visuals[target].alt;
+          menuVisual.style.opacity = 1;
+        }, 150);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
